@@ -31,6 +31,7 @@ public class SaleController {
         try {
             long id = saleService.save(saleDTO);
             return new ResponseEntity<>("venda realizada com sucesso"+ id, HttpStatus.CREATED);
+
         } catch(Exception error){
             return new ResponseEntity<>(error.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

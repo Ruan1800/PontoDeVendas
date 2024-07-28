@@ -8,6 +8,7 @@ import com.gm2.pdv.demo.Entity.ItemSale;
 import com.gm2.pdv.demo.Entity.Product;
 import com.gm2.pdv.demo.Entity.Sale;
 import com.gm2.pdv.demo.Entity.User;
+import com.gm2.pdv.demo.Exception.NoItemException;
 import com.gm2.pdv.demo.Repository.ItemSaleRepository;
 import com.gm2.pdv.demo.Repository.ProductRepository;
 import com.gm2.pdv.demo.Repository.SaleRepository;
@@ -89,10 +90,10 @@ public class SaleService {
                 itemSale.setProduct(product);
                 itemSale.setQuantity(item.getQuantity());
 
-                if (product.getQuantity() ==0 ) {
-                    throw new IllegalArgumentException();
+                if (product.getQuantity() == 0 ) {
+                    throw new NoItemException("produto sem estoque.");
                 } else if (product.getQuantity() < item.getQuantity()) {
-                    throw new IllegalArgumentException();
+                    throw new NoItemException(String.format("A quantidade de itens da venda (%s)" + "é maior do que a quantidade disponivel no estoque(%s", item.getQuantity(), product.getQuantity()));
                 }
 
             int total = product.getQuantity() - item.getQuantity();
